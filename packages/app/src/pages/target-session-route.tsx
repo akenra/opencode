@@ -16,12 +16,14 @@ export default function TargetSessionRoute() {
   })
 
   return (
-    <Show when={requireServerKey(params.serverKey)} keyed>
-      <ServerSDKProvider server={connection}>
-        <ServerSyncProvider server={connection}>
-          <TargetSessionRouteContent />
-        </ServerSyncProvider>
-      </ServerSDKProvider>
+    <Show when={connection()} keyed>
+      {(server) => (
+        <ServerSDKProvider server={server}>
+          <ServerSyncProvider server={server}>
+            <TargetSessionRouteContent />
+          </ServerSyncProvider>
+        </ServerSDKProvider>
+      )}
     </Show>
   )
 }
